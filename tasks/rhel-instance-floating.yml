@@ -1,0 +1,111 @@
+---
+    - name: create  volumes
+      os_volume: state=present size={{ item.volumesize }} display_name={{ item.volumename }}
+      with_items:
+        - { volumesize: '50', volumename: 'volume1-{{ item.instancename }}' }
+
+    - name: "deploy instance {{ item.instancename }}"
+      os_server:
+            state: present
+            name: "{{ item.instancename }}"
+            image: "{{image}}"
+            flavor: "{{ item.flavor }}"
+            security_groups: admin
+            key_name: "{{keyname}}"
+            auto_ip: yes
+            boot_from_volume: True
+            volume_size: "{{ item.volume_size }}"
+            volumes:
+              - "volume1-{{ item.instancename }}"
+            nics:
+              - net-name: {{ private_net }}
+            userdata: |
+              #cloud-config
+              cloud_init_modules:
+               - migrator
+               - cc_disk_setup
+               - bootcmd
+               - write-files
+               - growpart
+               - resizefs
+               - set_hostname
+               - update_hostname
+               - update_etc_hosts
+               - rsyslog
+               - users-groups
+               - ssh
+
+              cloud_config_modules:
+               - mounts
+               - locale
+               - set-passwords
+               - yum-add-repo
+               - package-update-upgrade-install
+               - timezone
+               - disable-ec2-metadata
+               - runcmd
+
+              cloud_final_modules:
+               - scripts-per-once
+               - scripts-per-boot
+               - scripts-per-instance
+               - scripts-user
+               - ssh-authkey-fingerprints
+               - keys-to-console
+               - final-message
+              hostname: {{ item.instancename }}
+              fqdn: {{ item.instancename }}.{{ domain_name }}
+              manage_etc_hosts: false
+              debug: true
+              package_upgrade: false
+              users:
+                - default
+                - name: stack
+                  sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+                  groups: wheel,adm
+                  ssh_pwauth: True
+                  ssh_authorized_keys:
+                    - {{IDRSAPUB}}
+                - name: root
+                  ssh_authorized_keys:
+                    - {{IDRSAPUB}}
+              ssh_pwauth: True
+              disable_root: false
+              chpasswd:
+                list: |
+                  root:toor
+                  stack:stack
+                expire: false
+              runcmd:
+                - subscription-manager register --username={{rhn_username}} --password={{rhn_password}}
+                - subscription-manager attach --pool={{pool}}
+                - subscription-manager repos --disable=*
+                - subscription-manager repos --enable=rhel-7-server-rpms --enable=rhel-7-server-extras-rpms --enable=rhel-7-server-rh-common-rpms --enable=rhel-ha-for-rhel-7-server-rpms --enable=rhel-7-server-ose-3.5-rpms --enable=rhel-7-fast-datapath-rpms
+                # - yum update -y
+                # - yum install wget yum-utils httpd git tmux vim createrepo  -y
+                - sed -i '/OPTIONS=.*/c\OPTIONS="--selinux-enabled --log-driver=json-file --log-opt max-size=50m --insecure-registry 172.30.0.0/16"' /etc/sysconfig/docker
+              packages:
+                - wget
+                - yum-utils
+                - git
+                - vim
+                - tmux
+                - wget
+                - net-tools
+                - bind-utils
+                - iptables-services
+                - bridge-utils
+                - bash-completion
+                - nfs-utils
+                - atomic-openshift-utils
+              fs_setup:
+               - label: None
+                 filesystem: 'ext4'
+                 device: '/dev/vdb'
+                 partition: 'auto'
+
+              mounts:
+
+               - [ /dev/vdb, /OSC, "ext4", "defaults,noatime"]
+
+              mount_default_fields: [ None, None, "ext4", "defaults,noatime", "0","2" ]
