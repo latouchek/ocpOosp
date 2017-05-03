@@ -9,7 +9,7 @@ A set of  playbooks to deploy OSC infra on top of OSP. (In progress)
     <td>vCPU</td>
     <td>RAM</td>
     <td>Storage</td>
-    <td>Notes</td>
+    <td>Disks</td>
   </tr>
   <tr>
     <td>LB</td>
@@ -17,7 +17,7 @@ A set of  playbooks to deploy OSC infra on top of OSP. (In progress)
     <td>1</td>
     <td>4</td>
     <td>20Gb</td>
-    <td>One volume, vda</td>
+    <td>Two volumes, vda + vdb</td>
   </tr>
   <tr>
     <td>Master</td>
@@ -49,7 +49,7 @@ A set of  playbooks to deploy OSC infra on top of OSP. (In progress)
     <td>1</td>
     <td>4</td>
     <td>30Gb</td>
-    <td>One volume, vda</td>
+    <td>Two volumes, vda + vdb</td>
   </tr>
 </table>
 
@@ -61,6 +61,8 @@ Install latest version of ansible
 ### usage
 
 Provide needed infos in all.yaml
+
+Source your cloud rc file
 
 Run:
 

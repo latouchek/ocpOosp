@@ -23,4 +23,4 @@
         - { instancename: 'Infra1', flavor: 'Infra', volume_size: '50' }
         - { instancename: 'Infra2', flavor: 'Infra', volume_size: '50' }
         - { instancename: 'App', flavor: 'App', volume_size: '50' }
-        - { instancename: 'Bastion', flavor: 'Bastion', volume_size: '50' }
+        - { instancename: 'Bastion', flavor: 'Bastion', volume_size: '30' }
