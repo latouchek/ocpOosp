@@ -37,7 +37,7 @@ A set of  playbooks to deploy OSC infra on top of OSP. (In progress)
   </tr>
   <tr>
     <td>App</td>
-    <td>n</td>
+    <td>1</td>
     <td>1</td>
     <td>16</td>
     <td>2x50Gb</td>
