@@ -1,6 +1,6 @@
 ### Synopsis
 
-A set of  playbooks to deploy OSC on top of OSP.
+A set of  playbooks to deploy OSC infra on top of OSP. (In progress)
 
 
 ### Requirements

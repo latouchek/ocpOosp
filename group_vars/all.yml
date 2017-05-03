@@ -8,6 +8,3 @@ IDRSAPUB : ""
 image: rhel
 provider-net:
 private_net:
-cidr_provider_net:
-provider_phys:
-segmentation:
