@@ -13,14 +13,17 @@
         - { state: 'present', name: 'App' , ram: '16384' , vcpus: '2' , disk: '0' , ephemeral: '0' , flavorid: '8' }
         - { state: 'present', name: 'Bastion' , ram: '4096' , vcpus: '1' , disk: '0' , ephemeral: '0' , flavorid: '9' }
     - name: Create OCP cluster
+      include: ./tasks/rhel-instance-docker-provider.yml
+      with_items:
+        - { instancename: 'master1', flavor: 'master', volume_size: '50' }
+        - { instancename: 'master2', flavor: 'master', volume_size: '50' }
+        - { instancename: 'master3', flavor: 'master', volume_size: '50' }
+        - { instancename: 'infra1', flavor: 'infra', volume_size: '50' }
+        - { instancename: 'infra2', flavor: 'infra', volume_size: '50' }
+        - { instancename: 'app', flavor: 'app', volume_size: '50' }
+    - name: Create OCP cluster
       include: ./tasks/rhel-instance-provider.yml
       with_items:
-        - { instancename: 'LB1', flavor: 'LB', volume_size: '20' }
-        - { instancename: 'LB2', flavor: 'LB', volume_size: '20' }
-        - { instancename: 'Master1', flavor: 'Master', volume_size: '50' }
-        - { instancename: 'Master2', flavor: 'Master', volume_size: '50' }
-        - { instancename: 'Master3', flavor: 'Master', volume_size: '50' }
-        - { instancename: 'Infra1', flavor: 'Infra', volume_size: '50' }
-        - { instancename: 'Infra2', flavor: 'Infra', volume_size: '50' }
-        - { instancename: 'App', flavor: 'App', volume_size: '50' }
-        - { instancename: 'Bastion', flavor: 'Bastion', volume_size: '30' }
+        - { instancename: 'lb1', flavor: 'lb', volume_size: '20' }
+        - { instancename: 'lb2', flavor: 'lb', volume_size: '20' }
+        - { instancename: 'bastion', flavor: 'bastion', volume_size: '50' }
