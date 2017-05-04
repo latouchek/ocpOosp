@@ -2,16 +2,8 @@
 - hosts: localhost
   gather_facts: no
   tasks:
-
-
-    - name: "Create flavors"
-      os_nova_flavor: state={{ item.state }} name={{ item.name }} ram={{ item.ram }} vcpus={{ item.vcpus }} disk={{ item.disk }} ephemeral={{ item.ephemeral }} flavorid={{ item.flavorid }}
-      with_items:
-        - { state: 'present', name: 'LB' , ram: '4096' , vcpus: '1' , disk: '0' , ephemeral: '0' , flavorid: '10' }
-        - { state: 'present', name: 'Master' , ram: '16384' , vcpus: '2' , disk: '0' , ephemeral: '0' , flavorid: '6' }
-        - { state: 'present', name: 'Infra' , ram: '16384' , vcpus: '2' , disk: '0' , ephemeral: '0' , flavorid: '7' }
-        - { state: 'present', name: 'App' , ram: '16384' , vcpus: '2' , disk: '0' , ephemeral: '0' , flavorid: '8' }
-        - { state: 'present', name: 'Bastion' , ram: '4096' , vcpus: '1' , disk: '0' , ephemeral: '0' , flavorid: '9' }
+    - include: ./tasks/OCP-OSP-flavors.yml
+    
     - name: Create OCP cluster
       include: ./tasks/rhel-instance-docker-floating.yml
       with_items:
