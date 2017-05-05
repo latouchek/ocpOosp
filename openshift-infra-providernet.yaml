@@ -3,10 +3,7 @@
   gather_facts: no
   tasks:
     - include: ./tasks/OCP-OSP-flavors.yml
-    - name: OpenShift
-      os_security_group_rule:
-        security_group: admin
-        remote_ip_prefix: 0.0.0.0/0
+    - include: ./tasks/OCP-OSP-sg.yml
     - name: Create OCP cluster
       include: ./tasks/rhel-instance-docker-provider.yml
       with_items:
