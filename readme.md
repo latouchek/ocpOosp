@@ -17,7 +17,7 @@ A set of  playbooks to deploy OSC infra on top of OSP. (In progress)
     <td>1</td>
     <td>4</td>
     <td>20Gb</td>
-    <td>Two volumes, vda + vdb</td>
+    <td>One volume, vda </td>
   </tr>
   <tr>
     <td>Master</td>
@@ -49,7 +49,7 @@ A set of  playbooks to deploy OSC infra on top of OSP. (In progress)
     <td>1</td>
     <td>4</td>
     <td>30Gb</td>
-    <td>Two volumes, vda + vdb</td>
+    <td>One volume, vda</td>
   </tr>
 </table>
 

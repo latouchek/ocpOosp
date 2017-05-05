@@ -1,7 +1,6 @@
 ---
   - name: Update quotas
-    os_quota:
-      name: admin
+    os_quota: name=admin 
       backup_gigabytes: -1
       backups: -1
       cores: -1

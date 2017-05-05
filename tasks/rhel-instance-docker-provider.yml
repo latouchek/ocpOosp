@@ -41,11 +41,10 @@
                - locale
                - set-passwords
                - yum-add-repo
-               - package-update-upgrade-install
                - timezone
                - disable-ec2-metadata
                - runcmd
-
+               - package-update-upgrade-install
               cloud_final_modules:
                - scripts-per-once
                - scripts-per-boot
