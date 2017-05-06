@@ -19,7 +19,7 @@
             volumes:
               - "volume1-{{ item.instancename }}"
             nics:
-              - net-name: telenor-vlan1002
+              - net-name: home-vlan1002
             userdata: |
               #cloud-config
               cloud_init_modules:
@@ -55,7 +55,7 @@
                - keys-to-console
                - final-message
               hostname: {{ item.instancename }}
-              fqdn: {{ item.instancename }}.lab.telenor
+              fqdn: {{ item.instancename }}.lab.home
               manage_etc_hosts: false
               debug: true
               package_upgrade: true
